@@ -1,11 +1,11 @@
 pragma solidity ^0.4.11;
 
 library HouseholdLibrary {
-	function calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) returns (uint256 bounty) {
+	function calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {
 		return _recommendedCumulativeUsage - _userCumulativeUsage;
 	}
 
-	function calculateVoucher(uint256 _bounty, uint256 _factor) returns (uint256 voucher){
+	function calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher){
 		return _bounty * _factor;
 	}
 }
@@ -29,8 +29,16 @@ contract HouseholdContract{
 	/*
 	* Called hourly or daily to update water _usage
 	**/
-	function addWaterUsage(uint256 _usage, address _user) returns (uint256) {
+	function addWaterUsage(uint256 _usage, address _user) public returns (uint256) {
 		cumulativeUsage[_user] = _usage;
+		return cumulativeUsage[_user];
+	}
+
+	/**
+	* the cumulative water usage resets every month or when the user pays
+	**/
+	function resetWaterUsage(address _user) public returns (uint256) {
+		cumulativeUsage[_user] = 0;
 		return cumulativeUsage[_user];
 	}
 
@@ -39,8 +47,9 @@ contract HouseholdContract{
 	* calculate _recommendedCumulativeUsage from frontend
 	* Pay totals price and convert remainder to bounty
 	*/
-	function getBounty(uint256 _recommendedCumulativeUsage, address _user, uint256 _bountyFactor) returns (uint256 voucher) {
+	function getBounty(uint256 _recommendedCumulativeUsage, address _user, uint256 _bountyFactor) view returns (uint256 voucher) {
 		bounty[_user] = HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[_user]);
+		resetWaterUsage(_user);
 		return HouseholdLibrary.calculateVoucher(bounty[_user], _bountyFactor);
 	}
 }

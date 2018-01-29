@@ -1,4 +1,4 @@
-pragma ^0.4.11;
+pragma solidity ^0.4.11;
 
 library HouseholdLibrary {
 	function calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) returns (uint256 bounty) {

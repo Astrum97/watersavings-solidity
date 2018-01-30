@@ -21,7 +21,7 @@ contract HouseholdContract{
 	* TODO: add stuff
 	**/
 	function HouseholdContract() {
-
+		price[msg.sender] = 100;
 	}
 
 	/*
@@ -53,10 +53,10 @@ contract HouseholdContract{
 			voucher2 = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
 		}
 		else
-			price[msg.sender] += 100;
+			price[msg.sender] += 50;
 		uint256 amount2 = cumulativeUsage[msg.sender] * price[msg.sender];
 		resetWaterUsage();
-		return (voucher2, amount2);
+		return (voucher2, amount2 / 100);
 	}
 
 	/*

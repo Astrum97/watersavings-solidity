@@ -70,11 +70,11 @@ contract HouseholdContract{
 	* add function to use voucher to lower water price
 	**/
 
-	function getWaterUsage() view returns (uint256 usage){
+	function getWaterUsage() view returns (uint256 usage) {
 		return cumulativeUsage[msg.sender];
 	}
 
-	function getBounty() view returns (uint256 bountyp){
+	function getBounty() view returns (uint256 bountyp) {
 		return bounty[msg.sender];
 	}
 }

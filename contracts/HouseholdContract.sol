@@ -4,7 +4,6 @@ import "./HouseholdLibrary.sol";
 
 //contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
-
 contract HouseholdContract{
 
 	//credits/bounty van water gespaar
@@ -24,17 +23,17 @@ contract HouseholdContract{
 	/*
 	* Called hourly or daily to update water _usage
 	**/
-	function addWaterUsage(uint256 _usage, address _user) public returns (uint256) {
-		cumulativeUsage[_user] = _usage;
-		return cumulativeUsage[_user];
+	function addWaterUsage(uint256 _usage) public returns (uint256) {
+		cumulativeUsage[msg.sender] = _usage;
+		return cumulativeUsage[msg.sender];
 	}
 
 	/**
 	* the cumulative water usage resets every month or when the user pays
 	**/
-	function resetWaterUsage(address _user) public returns (uint256) {
-		cumulativeUsage[_user] = 0;
-		return cumulativeUsage[_user];
+	function resetWaterUsage() public returns (uint256) {
+		cumulativeUsage[msg.sender] = 0;
+		return cumulativeUsage[msg.sender];
 	}
 
 	/*
@@ -42,9 +41,9 @@ contract HouseholdContract{
 	* calculate _recommendedCumulativeUsage from frontend
 	* Pay totals price and convert remainder to bounty
 	*/
-	function getBounty(uint256 _recommendedCumulativeUsage, address _user, uint256 _bountyFactor) view returns (uint256 voucher) {
-		bounty[_user] = HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[_user]);
-		resetWaterUsage(_user);
-		return HouseholdLibrary.calculateVoucher(bounty[_user], _bountyFactor);
+	function getBounty(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) view returns (uint256 voucher) {
+		bounty[msg.sender] = HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
+		resetWaterUsage();
+		return HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
 	}
 }

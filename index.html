@@ -90,14 +90,30 @@
 
 //contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 	//nou moet ons die kontrak adres spesifiseer
-	var Household = HouseHoldContract.at('0x82945f42f26b80671103713d59d295e32f2ffd5f'); //kan adres string copy by run in remix
+	var Household = HouseHoldContract.at('0xe90ea8c58ddcef87ef62e5dd3d58d4e089901605'); //kan adres string copy by run in remix
 	console.log(Household);
 
+<<<<<<< Updated upstream
 	Household.addWaterUsage();//Yay!!!! uit freaken eindelik kry ek wat ek wil he
 	
 	function myFunction() {
 		console.log("Ek wil net kyk of die ding werk");
 	}
+=======
+	// Household.addWaterUsage();//Yay!!!! uit freaken eindelik kry ek wat ek wil he
+	Household.getBounty(5000,'0xe90ea8c58ddcef87ef62e5dd3d58d4e089901605', 2).then(function(voucher) {
+		$("#instructor").html('Voucher is ' + result[0]);
+	});
+
+	$("#button").click(function() {
+		Household.addWaterUsage($("name").val(), $("#age").val());
+
+		Household.getBounty(5000,'0xe90ea8c58ddcef87ef62e5dd3d58d4e089901605', 2).then(function(voucher) {
+			$("#instructor").html('Voucher is ' + result[0]);
+		});
+	});
+
+>>>>>>> Stashed changes
     </script>
 
 </body>

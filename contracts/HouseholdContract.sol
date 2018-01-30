@@ -27,7 +27,7 @@ contract HouseholdContract{
 	* TODO: add stuff
 	**/
 	function HouseholdContract() {
-		setLitrePrice();
+		setLitrePrice(1);
 		setInitPrice();
 	}
 
@@ -37,7 +37,7 @@ contract HouseholdContract{
 	}
 
 	function setId(string _id) public returns (string r_id) {
-		id[msg.sender] = id;
+		id[msg.sender] = _id;
 		return id[msg.sender];
 	}
 
@@ -67,21 +67,21 @@ contract HouseholdContract{
 	* calculate _recommendedCumulativeUsage from frontend
 	* Pay totals price and convert remainder to bounty
 	*/
-	function pay(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) public returns (uint256 voucher, uint256 amount) {
+	function pay(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) public returns (uint256 r_voucher, uint256 r_amount) {
 		uint256 voucher = 0;
 		if(_recommendedCumulativeUsage >= cumulativeUsage[msg.sender]) {
 			bounty[msg.sender] += HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
 			voucher = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
 		}
 		else
-			price[msg.sender] += HouseholdLibrary.increasePrice(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, _litre_price);
+			price[msg.sender] += HouseholdLibrary.increasePrice(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, litre_price);
 		uint256 amount = HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], 0);
 		resetWaterUsage();
 		return (voucher, HouseholdLibrary.centToRand(amount));
 	}
 
-	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance){
-		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedUsage, litre_price));
+	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance) {
+		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, litre_price));
 	}
 
 	/*
@@ -95,7 +95,7 @@ contract HouseholdContract{
 		return price[msg.sender];
 	}
 
-	function getLowerPriceReq() public view returns (uint256 amount){
+	function getLowerPriceReq() public view returns (uint256 amount) {
 		return HouseholdLibrary.lowerPriceReq(price[msg.sender], litre_price);
 	}
 

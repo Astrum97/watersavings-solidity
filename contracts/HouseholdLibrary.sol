@@ -38,7 +38,7 @@ library HouseholdLibrary {
 		return centToRand(_usage * (_price + _factor));
 	}
 
-	function lowerPriceReq(uint256 _price, uint8 _litre_price) public pure returns (uint256 price){
+	function lowerPriceReq(uint256 _price, uint8 _litre_price) public pure returns (uint256 price) {
 		return centToRand((_price - _litre_price) * 3000);
 	}
 }

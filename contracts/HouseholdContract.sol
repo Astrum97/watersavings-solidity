@@ -10,7 +10,7 @@ library HouseholdLibrary {
 	}
 }
 
-contract HouseholdContract{
+contract HouseholdContract {
 
 	//credits/bounty van water gespaar
 	mapping (address => uint256) bounty;

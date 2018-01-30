@@ -12,7 +12,24 @@
 
 </head>
 <body>
-	<button id="btn01" onclick="myFunction()">Toets</button> 
+    <div class="container">
+
+        <h1>Coursetro Instructor</h1>
+
+        <h2 id="instructor"></h2>
+
+        <label for="name" class="col-lg-2 control-label">Instructor Name</label>
+        <input id="name" type="text">
+
+        <label for="name" class="col-lg-2 control-label">Instructor Age</label>
+        <input id="age" type="text">
+
+        <button id="button">Update Instructor</button>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
     <script>
     //Hier onder is javascript kode wat web3js provider spesifiseer
@@ -31,89 +48,51 @@
 	//});
 	var HouseHoldContract = web3.eth.contract([
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_recommendedCumulativeUsage",
-				"type": "uint256"
-			},
-			{
-				"name": "_user",
-				"type": "address"
-			},
-			{
-				"name": "_bountyFactor",
-				"type": "uint256"
-			}
-		],
-		"name": "getBounty",
-		"outputs": [
-			{
-				"name": "voucher",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_usage",
-				"type": "uint256"
-			},
-			{
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "addWaterUsage",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	}
+		[ { constant: false,
+	    inputs: [],
+	    name: 'resetWaterUsage',
+	    outputs: [ [Object] ],
+	    payable: false,
+	    stateMutability: 'nonpayable',
+	    type: 'function' },
+	  { constant: true,
+	    inputs: [ [Object], [Object] ],
+	    name: 'getBounty',
+	    outputs: [ [Object] ],
+	    payable: false,
+	    stateMutability: 'view',
+	    type: 'function' },
+	  { constant: false,
+	    inputs: [ [Object] ],
+	    name: 'addWaterUsage',
+	    outputs: [ [Object] ],
+	    payable: false,
+	    stateMutability: 'nonpayable',
+	    type: 'function' },
+	  { inputs: [],
+	    payable: false,
+	    stateMutability: 'nonpayable',
+	    type: 'constructor' } ]
+
 ]);//kan vanaf remix by compile die ABI string copy
 
 //contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 	//nou moet ons die kontrak adres spesifiseer
-	var Household = HouseHoldContract.at('0xe90ea8c58ddcef87ef62e5dd3d58d4e089901605'); //kan adres string copy by run in remix
+	var Household = HouseHoldContract.at('0xe454a9b3e366a754f0b690e7ed66b91a5ba422f3'); //kan adres string copy by run in remix
 	console.log(Household);
 
-<<<<<<< Updated upstream
-	Household.addWaterUsage();//Yay!!!! uit freaken eindelik kry ek wat ek wil he
-	
-	function myFunction() {
-		console.log("Ek wil net kyk of die ding werk");
-	}
-=======
 	// Household.addWaterUsage();//Yay!!!! uit freaken eindelik kry ek wat ek wil he
-	Household.getBounty(5000,'0xe90ea8c58ddcef87ef62e5dd3d58d4e089901605', 2).then(function(voucher) {
+	Household.getBounty(5000, 2).then(function(voucher) {
 		$("#instructor").html('Voucher is ' + result[0]);
 	});
 
 	$("#button").click(function() {
-		Household.addWaterUsage($("name").val(), $("#age").val());
+		Household.addWaterUsage($("#age").val());
 
-		Household.getBounty(5000,'0xe90ea8c58ddcef87ef62e5dd3d58d4e089901605', 2).then(function(voucher) {
+		Household.getBounty(5000, 2).then(function(voucher) {
 			$("#instructor").html('Voucher is ' + result[0]);
 		});
 	});
-
->>>>>>> Stashed changes
     </script>
 
 </body>

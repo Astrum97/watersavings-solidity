@@ -1,10 +1,29 @@
+<<<<<<< HEAD
+var HouseholdContract = artifacts.require('./HouseholdContract.sol');
+var HouseholdLibrary = artifacts.require('./HouseholdLibrary.sol');
+
+
+contract('HouseholdContract', function(accounts) {
+=======
 var Node = artifacts.require('./Node.sol');
 
 contract('Node', function(accounts) {
+>>>>>>> develop
   let contract;
   const parent = accounts[0];
 
   before(async function(){
+<<<<<<< HEAD
+    contract = await HouseholdContract.deployed();
+  });
+
+  it("HouseholdContract contract is deployed.", async function() {
+    assert(contract);
+  });
+
+
+
+=======
     contract = await Node.deployed();
   });
 
@@ -29,4 +48,5 @@ contract('Node', function(accounts) {
 
     console.log("Toets of die ding werk.");
   });
+>>>>>>> develop
 });

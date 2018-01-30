@@ -21,7 +21,7 @@ contract HouseholdContract{
 	* TODO: add stuff
 	**/
 	function HouseholdContract() {
-		price[msg.sender] = 100;
+		price[msg.sender] = 25;
 	}
 
 	/*
@@ -53,16 +53,22 @@ contract HouseholdContract{
 			voucher2 = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
 		}
 		else
-			price[msg.sender] += 50;
+			price[msg.sender] += 1 * (cumulativeUsage - _recommendedCumulativeUsage);
 		uint256 amount2 = cumulativeUsage[msg.sender] * price[msg.sender];
 		resetWaterUsage();
 		return (voucher2, amount2 / 100);
 	}
 
+	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance){
+		uint256 _factor = 0;
+		if(_recommendedCumulativeUsage > cumulativeUsage[msg.sender])
+			_factor += 1 * (cumulativeUsage - _recommendedCumulativeUsage);
+		return cumulativeUsage[msg.sender] * (price[msg.sender] + _factor) / 100;
+	}
+
 	/*
 	* add function to use voucher to lower water price
 	**/
-
 
 	function getWaterUsage() view returns (uint256 usage){
 		return cumulativeUsage[msg.sender];

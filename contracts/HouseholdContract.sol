@@ -2,6 +2,9 @@ pragma solidity ^0.4.11;
 
 import "./HouseholdLibrary.sol";
 
+//contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
+
+
 contract HouseholdContract{
 
 	//credits/bounty van water gespaar

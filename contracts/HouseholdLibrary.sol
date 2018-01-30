@@ -15,8 +15,8 @@ library HouseholdLibrary {
 		return _bounty * _factor;
 	}
 
-	function increasePrice(uint256 _usage, _recommendedUsage) public pure returns (uint256 newPrice) {
-		return 1 * (_usage - _recommendedUsage);
+	function increasePrice(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price) public pure returns (uint256 newPrice) {
+		return _litre_price * (_usage - _recommendedUsage);
 	}
 
 	/*function getAmountToPay(uint256 _usage, uint256 _price) public pure returns (uint256 amount) {
@@ -27,9 +27,9 @@ library HouseholdLibrary {
 		return _cents / 100;
 	}
 
-	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage) public pure returns (uint256 factor) {
+	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price) public pure returns (uint256 factor) {
 		if(_recommendedUsage < _usage)
-			return 1 * (_usage - _recommendedUsage);
+			return _litre_price * (_usage - _recommendedUsage);
 		else
 			return 0;
 	}
@@ -38,7 +38,7 @@ library HouseholdLibrary {
 		return centToRand(_usage * (_price + _factor));
 	}
 
-	function lowerPriceReq(uint256 _price) public pure returns (uint256 price){
-		return centToRand((_price - 1) * 3000);
+	function lowerPriceReq(uint256 _price, uint8 _litre_price) public pure returns (uint256 price){
+		return centToRand((_price - _litre_price) * 3000);
 	}
 }

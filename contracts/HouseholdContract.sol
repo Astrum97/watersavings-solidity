@@ -21,11 +21,19 @@ contract HouseholdContract{
 
 	mapping (address => uint256) price;
 
+	uint8 litre_price;
+
 	/**
 	* TODO: add stuff
 	**/
 	function HouseholdContract() {
+		setLitrePrice();
 		setInitPrice();
+	}
+
+	function setLitrePrice(uint8 _litre_price) public returns (uint8 r_litre_price) {
+		litre_price = _litre_price;
+		return litre_price;
 	}
 
 	function setId(string _id) public returns (string r_id) {
@@ -34,7 +42,7 @@ contract HouseholdContract{
 	}
 
 	function setInitPrice() public {
-		price[msg.sender] = 1;
+		price[msg.sender] = litre_price;
 	}
 
 	/*
@@ -66,21 +74,21 @@ contract HouseholdContract{
 			voucher = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
 		}
 		else
-			price[msg.sender] += HouseholdLibrary.increasePrice(cumulativeUsage[msg.sender], _recommendedCumulativeUsage);
+			price[msg.sender] += HouseholdLibrary.increasePrice(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, _litre_price);
 		uint256 amount = HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], 0);
 		resetWaterUsage();
 		return (voucher, HouseholdLibrary.centToRand(amount));
 	}
 
 	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance){
-		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedUsage));
+		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedUsage, litre_price));
 	}
 
 	/*
 	* function to lower price if it is high
 	**/
 	function lowerPrice(uint256 _factor) public returns (uint256 r_price) {
-		if(price[msg.sender] > 1) {
+		if(price[msg.sender] > litre_price) {
 			price[msg.sender] -= _factor;
 		}
 
@@ -88,7 +96,7 @@ contract HouseholdContract{
 	}
 
 	function getLowerPriceReq() public view returns (uint256 amount){
-		return HouseholdLibrary.lowerPriceReq(price[msg.sender])
+		return HouseholdLibrary.lowerPriceReq(price[msg.sender], litre_price);
 	}
 
 	function getWaterUsage() public view returns (uint256 usage) {

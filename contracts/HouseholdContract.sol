@@ -1,16 +1,8 @@
 pragma solidity ^0.4.11;
 
-library HouseholdLibrary {
-	function calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {
-		return _recommendedCumulativeUsage - _userCumulativeUsage;
-	}
+import "./HouseholdLibrary.sol";
 
-	function calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher){
-		return _bounty * _factor;
-	}
-}
-
-contract HouseholdContract {
+contract HouseholdContract{
 
 	//credits/bounty van water gespaar
 	mapping (address => uint256) bounty;

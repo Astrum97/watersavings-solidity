@@ -1,4 +1,6 @@
 var HouseholdContract = artifacts.require('./HouseholdContract.sol');
+var HouseholdLibrary = artifacts.require('./HouseholdLibrary.sol');
+
 
 contract('HouseholdContract', function(accounts) {
   let contract;
@@ -12,6 +14,6 @@ contract('HouseholdContract', function(accounts) {
     assert(contract);
   });
 
-  
+
 
 });

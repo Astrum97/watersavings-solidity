@@ -13,8 +13,6 @@ contract HouseholdContract{
 	//hoeveelheid die huishouding al gebruik het
 	mapping (address => uint256) cumulativeUsage;
 
-	mapping (address => uint256) previousPurchase;
-
 	mapping (address => uint256) price;
 
 	/**
@@ -22,6 +20,7 @@ contract HouseholdContract{
 	**/
 	function HouseholdContract() {
 		price[msg.sender] = 1;
+		id[msg.sender] = '9307185055084';
 	}
 
 	/*
@@ -62,13 +61,24 @@ contract HouseholdContract{
 	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance){
 		uint256 _factor = 0;
 		if(_recommendedCumulativeUsage > cumulativeUsage[msg.sender])
-			_factor += 1 * (cumulativeUsage - _recommendedCumulativeUsage);
+			_factor += 1 * (cumulativeUsage[msg.sender] - _recommendedCumulativeUsage);
 		return cumulativeUsage[msg.sender] * (price[msg.sender] + _factor) / 100;
 	}
 
 	/*
-	* add function to use voucher to lower water price
+	* function to lower price if it is high
 	**/
+	function lowerPrice(uint256 factor) returns (uint256 pric) {
+		if(price[msg.sender] > 1) {
+			price[msg.sender] -= factor;
+		}
+
+		return price[msg.sender];
+	}
+
+	function getLowerPriceReq() {
+		return (price[msg.sender] - 1) * 3000;
+	}
 
 	function getWaterUsage() view returns (uint256 usage) {
 		return cumulativeUsage[msg.sender];

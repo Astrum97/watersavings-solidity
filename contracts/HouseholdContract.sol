@@ -13,6 +13,10 @@ contract HouseholdContract{
 	//hoeveelheid die huishouding al gebruik het
 	mapping (address => uint256) cumulativeUsage;
 
+	mapping (address => uint256) previousPurchase;
+
+	mapping (address => uint256) price;
+
 	/**
 	* TODO: add stuff
 	**/
@@ -33,6 +37,7 @@ contract HouseholdContract{
 	**/
 	function resetWaterUsage() public returns (uint256) {
 		cumulativeUsage[msg.sender] = 0;
+		//resets the Pi.... --assumption
 		return cumulativeUsage[msg.sender];
 	}
 
@@ -41,9 +46,29 @@ contract HouseholdContract{
 	* calculate _recommendedCumulativeUsage from frontend
 	* Pay totals price and convert remainder to bounty
 	*/
-	function getBounty(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) view returns (uint256 voucher) {
-		bounty[msg.sender] = HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
+	function pay(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) public returns (uint256 voucher, uint256 amount) {
+		uint256 voucher2 = 0;
+		if(_recommendedCumulativeUsage > cumulativeUsage[msg.sender]) {
+			bounty[msg.sender] += HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
+			voucher2 = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
+		}
+		else
+			price[msg.sender] += 100;
+		uint256 amount2 = cumulativeUsage[msg.sender] * price[msg.sender];
 		resetWaterUsage();
-		return HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
+		return (voucher2, amount2);
+	}
+
+	/*
+	* add function to use voucher to lower water price
+	**/
+
+
+	function getWaterUsage() view returns (uint256 usage){
+		return cumulativeUsage[msg.sender];
+	}
+
+	function getBounty() view returns (uint256 bountyp){
+		return bounty[msg.sender];
 	}
 }

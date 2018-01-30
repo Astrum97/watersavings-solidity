@@ -48,15 +48,15 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60fa8061001d6000396000f3006060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a72305820dd82c9df7718fe8bf931a6427c09fce4016db7dccbd3969eafa458ec118eea4e0029",
-  "deployedBytecode": "0x6060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a72305820dd82c9df7718fe8bf931a6427c09fce4016db7dccbd3969eafa458ec118eea4e0029",
+  "bytecode": "0x6060604052341561000f57600080fd5b60fa8061001d6000396000f3006060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a72305820523d856e089c7492b4301e5b95d39bdbbeac4b05c9b4467709e9ffec724bdf1d0029",
+  "deployedBytecode": "0x6060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a72305820523d856e089c7492b4301e5b95d39bdbbeac4b05c9b4467709e9ffec724bdf1d0029",
   "sourceMap": "28:364:0:-;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "28:364:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:196;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;258:131;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:196;170:14;228:20;198:27;:50;191:57;;57:196;;;;:::o;258:131::-;339:15;377:7;367;:17;360:24;;258:131;;;;:::o",
   "source": "pragma solidity ^0.4.11;\r\n\r\nlibrary HouseholdLibrary {\r\n\tfunction calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {\r\n\t\treturn _recommendedCumulativeUsage - _userCumulativeUsage;\r\n\t}\r\n\r\n\tfunction calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher){\r\n\t\treturn _bounty * _factor;\r\n\t}\r\n}\r\n\r\ncontract HouseholdContract {\r\n\r\n\t//credits/bounty van water gespaar\r\n\tmapping (address => uint256) bounty;\r\n\t//id number van persoon\r\n\tmapping (address => string) id;\r\n\t//hoeveelheid die huishouding al gebruik het\r\n\tmapping (address => uint256) cumulativeUsage;\r\n\r\n\t/**\r\n\t* TODO: add stuff\r\n\t**/\r\n\tfunction HouseholdContract() {\r\n\r\n\t}\r\n\r\n\t/*\r\n\t* Called hourly or daily to update water _usage\r\n\t**/\r\n\tfunction addWaterUsage(uint256 _usage, address _user) public returns (uint256) {\r\n\t\tcumulativeUsage[_user] = _usage;\r\n\t\treturn cumulativeUsage[_user];\r\n\t}\r\n\r\n\t/**\r\n\t* the cumulative water usage resets every month or when the user pays\r\n\t**/\r\n\tfunction resetWaterUsage(address _user) public returns (uint256) {\r\n\t\tcumulativeUsage[_user] = 0;\r\n\t\treturn cumulativeUsage[_user];\r\n\t}\r\n\r\n\t/*\r\n\t* Called once a month, but updated regularly offchain\r\n\t* calculate _recommendedCumulativeUsage from frontend\r\n\t* Pay totals price and convert remainder to bounty\r\n\t*/\r\n\tfunction getBounty(uint256 _recommendedCumulativeUsage, address _user, uint256 _bountyFactor) view returns (uint256 voucher) {\r\n\t\tbounty[_user] = HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[_user]);\r\n\t\tresetWaterUsage(_user);\r\n\t\treturn HouseholdLibrary.calculateVoucher(bounty[_user], _bountyFactor);\r\n\t}\r\n}\r\n",
-  "sourcePath": "/home/jaak/watersavings-solidity/contracts/HouseholdContract.sol",
+  "sourcePath": "/home/zander/GitHub/watersavings-solidity/contracts/HouseholdContract.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/home/jaak/watersavings-solidity/contracts/HouseholdContract.sol",
+      "absolutePath": "/home/zander/GitHub/watersavings-solidity/contracts/HouseholdContract.sol",
       "exportedSymbols": {
         "HouseholdContract": [
           121
@@ -1681,5 +1681,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-30T07:11:54.197Z"
+  "updatedAt": "2018-01-30T07:28:54.581Z"
 }

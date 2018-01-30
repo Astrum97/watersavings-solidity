@@ -25,8 +25,16 @@ contract HouseholdContract{
 	* TODO: add stuff
 	**/
 	function HouseholdContract() {
+		setInitPrice();
+	}
+
+	function setId(string _id) public returns (string r_id) {
+		id[msg.sender] = id;
+		return id[msg.sender];
+	}
+
+	function setInitPrice() public {
 		price[msg.sender] = 1;
-		id[msg.sender] = '9307185055084';
 	}
 
 	/*
@@ -71,7 +79,7 @@ contract HouseholdContract{
 	/*
 	* function to lower price if it is high
 	**/
-	function lowerPrice(uint256 _factor) returns (uint256 r_price) {
+	function lowerPrice(uint256 _factor) public returns (uint256 r_price) {
 		if(price[msg.sender] > 1) {
 			price[msg.sender] -= _factor;
 		}

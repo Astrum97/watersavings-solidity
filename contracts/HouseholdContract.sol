@@ -4,7 +4,7 @@ import "./HouseholdLibrary.sol";
 
 //contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
-contract HouseholdContract{
+contract HouseholdContract {
 
 	//credits/bounty van water gespaar
 	mapping (address => uint256) bounty;
@@ -20,7 +20,7 @@ contract HouseholdContract{
 	/**
 	* TODO: add stuff
 	**/
-	function HouseholdContract() {
+	function HouseholdContract() public {
 		price[msg.sender] = 100;
 	}
 
@@ -48,7 +48,7 @@ contract HouseholdContract{
 	*/
 	function pay(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) public returns (uint256 voucher, uint256 amount) {
 		uint256 voucher2 = 0;
-		if(_recommendedCumulativeUsage > cumulativeUsage[msg.sender]) {
+		if (_recommendedCumulativeUsage > cumulativeUsage[msg.sender]) {
 			bounty[msg.sender] += HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
 			voucher2 = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
 		}
@@ -64,11 +64,11 @@ contract HouseholdContract{
 	**/
 
 
-	function getWaterUsage() view returns (uint256 usage){
+	function getWaterUsage() public view returns (uint256 usage) {
 		return cumulativeUsage[msg.sender];
 	}
 
-	function getBounty() view returns (uint256 bountyp){
+	function getBounty() public view returns (uint256 bountyp) {
 		return bounty[msg.sender];
 	}
 }

@@ -59,10 +59,7 @@ contract HouseholdContract{
 	}
 
 	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance){
-		uint256 _factor = 0;
-		if(_recommendedCumulativeUsage < cumulativeUsage[msg.sender])
-			_factor = HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedUsage);
-		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], _factor);
+		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedUsage));
 	}
 
 	/*

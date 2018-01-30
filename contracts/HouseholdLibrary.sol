@@ -22,14 +22,17 @@ library HouseholdLibrary {
 	}
 
 	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage) public pure returns (uint256 factor) {
-		return 1 * (_usage - _recommendedUsage);
+		if(_recommendedUsage < _usage)
+			return 1 * (_usage - _recommendedUsage);
+		else
+			return 0;
 	}
 
 	function calculateOutstandingBalance(uint256 _usage, uint256 _price, uint256 _factor) public pure returns (uint256 amount) {
-		return _usage * (_price + _factor) / 100;
+		return centToRand(_usage * (_price + _factor));
 	}
 
 	function lowerPriceReq(uint256 _price) public pure returns (uint256 price){
-		return (_price - 1) * 3000;
+		return centToRand((_price - 1) * 3000);
 	}
 }

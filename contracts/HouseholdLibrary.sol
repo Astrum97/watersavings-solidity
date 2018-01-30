@@ -1,5 +1,11 @@
 pragma solidity ^0.4.11;
 
+/*
+ * Zander Labuschagne se baie werk volg Hier
+ * 23585137@protonmail.ch | zander.labuschagne@protonmail.ch
+ * Hierdie kode word gepubliseer onder die GNU GPL 2 Lisensie
+ */
+
 library HouseholdLibrary {
 	function calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {
 		return _recommendedCumulativeUsage - _userCumulativeUsage;

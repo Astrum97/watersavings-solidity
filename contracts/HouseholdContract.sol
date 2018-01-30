@@ -2,6 +2,12 @@ pragma solidity ^0.4.11;
 
 import "./HouseholdLibrary.sol";
 
+/*
+ * Zander Labuschagne se baie werk volg Hier
+ * 23585137@protonmail.ch | zander.labuschagne@protonmail.ch
+ * Hierdie kode word gepubliseer onder die GNU GPL 2 Lisensie
+ */
+
 //contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
 contract HouseholdContract{

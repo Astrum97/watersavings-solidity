@@ -10,7 +10,7 @@ import "./HouseholdLibrary.sol";
 
 //HouseholdContract.new().then(function(res) { sc = HouseholdContract.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
-contract HouseholdContract{
+contract HouseholdContract {
 
 	//credits/bounty van water gespaar
 	mapping (address => uint256) bounty;
@@ -146,11 +146,7 @@ contract HouseholdContract{
 	 * Ex: 2 would then also be paying 1c extra for every addisional 2l used
 	 * This should probably be inverted but the current price is 1c per litre and 1l per 1c decrease is actually a lot
 	**/
-<<<<<<< HEAD
-	function setPenaltyFactor(uint8 _penaltyFactor) returns (uint8 factor) {
-=======
 	function setPenaltyFactor(uint8 _penaltyFactor) public returns (uint8 factor) {
->>>>>>> 032febbc9b0a5edba63f4c4b8f9b15fdf7c3d695
 		penaltyFactor = _penaltyFactor;
 	}
 

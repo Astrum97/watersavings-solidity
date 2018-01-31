@@ -22,13 +22,21 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Water usage simulator</h1>
+          <h1 class="text-center">Unblock-the-Tap</h1>
           <hr/>
           <br/>
         </div>
       </div>
-      <input id="waterIncrease" type="number">
-      <button id="open" >Add water</button>
+
+      <label>RSA-ID number or Passport</label>
+      <br/>
+      <input type="text" id="idnumber">
+      <br/>
+      <label style="padding-top: 1%">Number of residents (including registered user):</label>
+      <br/>
+      <input type="number" id="dependents">
+      <br/><br/>
+      <button id="Submit" >Submit</button>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -36,6 +44,6 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/web3.min.js"></script>
     <script src="../js/truffle-contract.js"></script>
-    <script src="../js/increaseWaterUsage.js"></script>
+    <script src="../js/register.js"></script>
   </body>
 </html>

@@ -8,7 +8,7 @@ import "./HouseholdLibrary.sol";
  * Hierdie kode word gepubliseer onder die BSD-3 nuwe of hersiende lisensie
  */
 
-//HouseHoldContract.new().then(function(res) { sc = HouseHoldContract.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
+//HouseholdContract.new().then(function(res) { sc = HouseholdContract.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
 contract HouseholdContract{
 
@@ -29,6 +29,8 @@ contract HouseholdContract{
 
 	uint8 penaltyFactor;
 
+	uint256 value;
+
 	mapping (address => uint8) numberOfDependants;
 
 	function HouseholdContract() {
@@ -37,7 +39,7 @@ contract HouseholdContract{
 	}
 
 	/*
-	 * To change the R/litre if desired
+	 * To change the c/litre if desired
 	**/
 	function setLitrePrice(uint8 _litre_price) public returns (uint8 r_litre_price) {
 		litre_price = _litre_price;
@@ -100,9 +102,11 @@ contract HouseholdContract{
 	/*
 	 * return the amount it would cost in R at the moment to pay the water bill
 	**/
-	function getOutstandingBalance(uint256 _recommendedDailyUsage) returns (uint256 balance) {
+	function getOutstandingBalance(uint256 _recommendedDailyUsage) public view returns (uint256 balance) {
 		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]);
-		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]), litre_price));
+		/*value =*/ return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]), litre_price, penaltyFactor));
+
+		//return value;
 	}
 
 	/*
@@ -135,9 +139,9 @@ contract HouseholdContract{
 	 * this is the amount the user pays per litre he overused(as well as for future payments) it is the amount of litres per cent ex: 5 would be paying 1c extra for every addisional 5l used
 	 * Ex; 1 would then also be paying 1c extra for every addisional litre used
 	 * Ex: 2 would then also be paying 1c extra for every addisional 2l used
-	 * This should probably be inverted but the current price is 1c per litre and 1l per 1c decrease is actually a lot 
+	 * This should probably be inverted but the current price is 1c per litre and 1l per 1c decrease is actually a lot
 	**/
-	function setPenaltyFactor(uint8 _penaltyFactor) return (uint8 factor) {
+	function setPenaltyFactor(uint8 _penaltyFactor) public returns (uint8 factor) {
 		penaltyFactor = _penaltyFactor;
 	}
 
@@ -155,16 +159,33 @@ contract HouseholdContract{
 		return bounty[msg.sender];
 	}
 
+	/*
+	 * Called when payment is made to save when the user last made a payment
+	**/
 	function setTime() {
 		time[msg.sender] = block.timestamp;
 	}
 
-	function getTime() returns (uint r_time) {
+	/*
+	 * Accessor for the time mapping
+	*/
+	function getTime() public view returns (uint r_time) {
 		return time[msg.sender];
 	}
 
+	/*
+	 * Mutator for number of dependants to set the number of people in the household thats using the water on this one address/account
+	 * Only called on registration
+	**/
 	function setNumberOfDependants(uint8 _deps) returns (uint8 deps) {
 		numberOfDependants[msg.sender] = _deps;
 		return numberOfDependants[msg.sender];
+	}
+
+	/*
+	* just for testing
+	*/
+	function getValue() public view returns (uint256 val) {
+		return value;
 	}
 }

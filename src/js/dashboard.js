@@ -1,3 +1,13 @@
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+      x.className += " responsive";
+  } else {
+      x.className = "topnav";
+  }
+} 
+
 App = {
     web3Provider: null,
     contracts: {},
@@ -5,7 +15,7 @@ App = {
     init: function() {
       return App.initWeb3();
     },
-  
+
     initWeb3: function() {
       if (typeof web3 !== 'undefined') {
         App.web3Provider = web3.currentProvider;

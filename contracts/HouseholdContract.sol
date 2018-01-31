@@ -8,7 +8,7 @@ import "./HouseholdLibrary.sol";
  * Hierdie kode word gepubliseer onder die BSD-3 nuwe of hersiende lisensie
  */
 
-//contract_name.new().then(function(res) { sc = contract_name.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
+//HouseHoldContract.new().then(function(res) { sc = HouseHoldContract.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
 contract HouseholdContract{
 

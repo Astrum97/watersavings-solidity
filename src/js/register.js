@@ -23,7 +23,6 @@ App = {
         var HouseholdContractArtifact = data;
         App.contracts.HouseholdContract = TruffleContract(HouseholdContractArtifact);
         App.contracts.HouseholdContract.setProvider(App.web3Provider);
-        return App.getWaterUsage();
       });
   
       return App.bindEvents();
@@ -34,34 +33,14 @@ App = {
     },
 
     saveUserDetails: function() {
-        var id = $('#idNumber').val();
+        var id = $('#idnumber').val();
+        var residents = $('#residents').val();
+        var meternumber = $('#meternumber').val();
         App.contracts.HouseholdContract.deployed().then(function(instance) {
             HouseholdContractInstance = instance;
-            return HouseholdContractInstance.setId(id);
+            return HouseholdContractInstance.register(id, meternumber, residents);
           }).then(function(result) {
-            App.contracts.HouseholdContract.deployed().then(function(instance) {
-                HouseholdContractInstance = instance;
-                return HouseholdContractInstance.setPenaltyFactor(1);
-              }).then(function(result) {
-                App.contracts.HouseholdContract.deployed().then(function(instance) {
-                    HouseholdContractInstance = instance;
-                    return HouseholdContractInstance.setTime();
-                  }).then(function(result) {
-                    App.contracts.HouseholdContract.deployed().then(function(instance) {
-                        var dependents = $('#dependents').val();
-                        HouseholdContractInstance = instance;
-                        return HouseholdContractInstance.setNumberOfDependants(dependents);
-                      }).then(function(result) {
-                        window.location = '../views/dashboard.html';
-                      }).catch(function(err) {
-                        console.log(err.message);
-                    });
-                  }).catch(function(err) {
-                    console.log(err.message);
-                });
-              }).catch(function(err) {
-                console.log(err.message);
-            });
+            window.location = '../views/dashboard.html';
           }).catch(function(err) {
             console.log(err.message);
         });

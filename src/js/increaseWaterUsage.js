@@ -23,12 +23,17 @@ App = {
         var HouseholdContractArtifact = data;
         App.contracts.HouseholdContract = TruffleContract(HouseholdContractArtifact);
         App.contracts.HouseholdContract.setProvider(App.web3Provider);
-        return App.getBalances();
+        return App.getWaterUsage();
       });
-    },
-    getBalances: function(account) {
-      console.log('Getting balances...');
   
+      return App.bindEvents();
+    },
+  
+    bindEvents: function() {
+      $(document).on('click', '#open', App.addWaterUsage);
+    },
+  
+    getWaterUsage: function(account) {
       var HouseholdContractInstance;
       web3.eth.getAccounts(function(error, accounts) {
         if (error) {
@@ -36,15 +41,6 @@ App = {
         }
   
         var account = accounts[0];
-        App.contracts.HouseholdContract.deployed().then(function(instance) {
-          HouseholdContractInstance = instance;
-          return HouseholdContractInstance.getOutstandingBalance(50);
-        }).then(function(result) {
-          balance = result.c[0];
-          $('#balance').text(balance);
-        }).catch(function(err) {
-          console.log(err.message);
-        });
 
         App.contracts.HouseholdContract.deployed().then(function(instance) {
           HouseholdContractInstance = instance;
@@ -55,24 +51,24 @@ App = {
         }).catch(function(err) {
           console.log(err.message);
         });
-
-        App.contracts.HouseholdContract.deployed().then(function(instance) {
-          HouseholdContractInstance = instance;
-          return HouseholdContractInstance.getBounty();
-        }).then(function(result) {
-          balance = result.c[0];
-          $('#bounty').text(balance);
-        }).catch(function(err) {
-          console.log(err.message);
-        });
       });
+    },
+
+    addWaterUsage: function() {
+        var waterUsed = $('#waterIncrease').val();
+        App.contracts.HouseholdContract.deployed().then(function(instance) {
+            HouseholdContractInstance = instance;
+            return HouseholdContractInstance.addWaterUsage(waterUsed);
+          }).then(function(result) {
+            window.location = '../views/dashboard.html';
+          }).catch(function(err) {
+            console.log(err.message);
+        });
     }
-  
   };
   
   $(function() {
     $(window).load(function() {
       App.init();
     });
-  });
-  
+});

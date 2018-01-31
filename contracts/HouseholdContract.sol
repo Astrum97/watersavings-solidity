@@ -87,7 +87,7 @@ contract HouseholdContract {
 		return (voucher, HouseholdLibrary.centToRand(amount));
 	}
 
-	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) returns (uint256 balance) {
+	function getOutstandingBalance(uint256 _recommendedCumulativeUsage) view returns (uint256 balance) {
 		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, litre_price));
 	}
 
@@ -95,7 +95,7 @@ contract HouseholdContract {
 	* function to lower price if it is high by paying much more tha n usual price
 	**/
 	function lowerPrice(uint256 _factor) public returns (uint256 r_price) {
-		if(price[msg.sender] > litre_price) {
+		if (price[msg.sender] > litre_price) {
 			price[msg.sender] -= _factor;
 		}
 

@@ -28,7 +28,7 @@ library HouseholdLibrary {
 	}
 
 	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price) public pure returns (uint256 factor) {
-		if(_recommendedUsage < _usage)
+		if (_recommendedUsage < _usage)
 			return _litre_price * (_usage - _recommendedUsage);
 		else
 			return 0;

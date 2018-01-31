@@ -33,7 +33,7 @@ contract HouseholdContract{
 
 	uint256 value;
 
-	mapping (address => uint8) numberOfDependants;
+	mapping (address => uint8) numberOfResidents;
 
 	function HouseholdContract() {
 		setLitrePrice(1);
@@ -97,7 +97,7 @@ contract HouseholdContract{
 	*/
 	function pay(uint256 _recommendedDailyUsage, uint256 _bountyFactor) public returns (uint256 r_voucher, uint256 r_amount) {
 		uint256 voucher = 0;
-		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]);
+		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfResidents[msg.sender]);
 		if(_recommendedCumulativeUsage >= cumulativeUsage[msg.sender]) {
 			bounty[msg.sender] += HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
 			voucher = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
@@ -115,7 +115,7 @@ contract HouseholdContract{
 	**/
 	function getOutstandingBalance(uint256 _recommendedDailyUsage) public view returns (uint256 balance) {
 		//uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]);
-		/*value =*/ return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]), litre_price, penaltyFactor));
+		/*value =*/ return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfResidents[msg.sender]), litre_price, penaltyFactor));
 
 		//return value;
 	}
@@ -188,9 +188,9 @@ contract HouseholdContract{
 	 * Mutator for number of dependants to set the number of people in the household thats using the water on this one address/account
 	 * Only called on registration
 	**/
-	function setNumberOfDependants(uint8 _deps) returns (uint8 deps) {
-		numberOfDependants[msg.sender] = _deps;
-		return numberOfDependants[msg.sender];
+	function setNumberOfResidents(uint8 _deps) returns (uint8 deps) {
+		numberOfResidents[msg.sender] = _deps;
+		return numberOfResidents[msg.sender];
 	}
 
 	/*

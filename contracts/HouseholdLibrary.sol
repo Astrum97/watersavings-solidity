@@ -46,7 +46,7 @@ library HouseholdLibrary {
 		return (_time2 - _time1) / (1000 * 60 * 60 * 24);
 	}
 
-	function calculateRecommendedCumulativeUsage(uint256 _recommendedDailyUsage, uint256 _current, uint256 _previous, uint8 _deps) returns (uint256 cumulativeUsage){
+	function calculateRecommendedCumulativeUsage(uint256 _recommendedDailyUsage, uint256 _current, uint256 _previous, uint8 _deps) returns (uint256 cumulativeUsage) {
 		return _recommendedDailyUsage * getTimeDifferenceDays(_previous, _current) * _deps;
 	}
 }

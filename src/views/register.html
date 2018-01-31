@@ -28,29 +28,15 @@
         </div>
       </div>
 
-      <div class="card">
-        <img src="https://mygreatlakes.org/mglstatic/educate/images/knowledge-center/slider/ways-steps.png" alt="Balance" style="width:15%">
-        <div class="container">
-          <h4><b>Outstanding balance:</b></h4>
-          <p><span id="balance"></span></p>
-        </div>
-      </div> 
-    <br/>
-      <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Water_Drop_Icon_Vector.png" alt="Waterusage" style="width:10%">
-        <div class="container">
-          <h4><b>Water usage:</b></h4>
-          <p><span id="waterusage"></span></p>
-        </div>
-      </div> 
+      <label>RSA-ID number or Passport</label>
       <br/>
-      <div class="card">
-        <img src="https://image.flaticon.com/icons/svg/712/712801.svg" alt="Bounty" style="width:10%; padding-top: 1%">
-        <div class="container">
-          <h4><b>Bounty collected:</b></h4>
-          <p><span id="bounty"></span></p>
-        </div>
-      </div> 
+      <input type="text" id="idnumber">
+      <br/>
+      <label style="padding-top: 1%">Number of residents (including registered user):</label>
+      <br/>
+      <input type="number" id="dependents">
+      <br/><br/>
+      <button id="Submit" >Submit</button>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -58,6 +44,6 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/web3.min.js"></script>
     <script src="../js/truffle-contract.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="../js/register.js"></script>
   </body>
 </html>

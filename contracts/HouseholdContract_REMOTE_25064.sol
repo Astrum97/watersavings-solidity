@@ -31,7 +31,7 @@ contract HouseholdContract{
 
 	uint8 penaltyFactor;
 
-	string value; //TODO: Remove on final implementation
+	uint256 value; //TODO: Remove on final implementation
 
 	mapping (address => uint8) numberOfResidents;
 
@@ -41,14 +41,12 @@ contract HouseholdContract{
 		setLowerPriceReqFactor(10);
 	}
 
-	function register(string _id, string _meterNumber, uint8 _residents) public returns (uint8 r_err) {
+	function register(string _id, string _meterNumber, uint8 _residents) public {
 		id[msg.sender] = _id;
 		meterNumber[msg.sender] = _meterNumber;
 		numberOfResidents[msg.sender] = _residents;
 		setTime();
 		resetWaterUsage();
-		return 0;
-		//value = id[msg.sender];
 	}
 
 	/*
@@ -146,11 +144,7 @@ contract HouseholdContract{
 	 * Ex: 2 would then also be paying 1c extra for every addisional 2l used
 	 * This should probably be inverted but the current price is 1c per litre and 1l per 1c decrease is actually a lot
 	**/
-<<<<<<< HEAD
-	function setPenaltyFactor(uint8 _penaltyFactor) returns (uint8 factor) {
-=======
 	function setPenaltyFactor(uint8 _penaltyFactor) public returns (uint8 factor) {
->>>>>>> 032febbc9b0a5edba63f4c4b8f9b15fdf7c3d695
 		penaltyFactor = _penaltyFactor;
 	}
 
@@ -185,7 +179,7 @@ contract HouseholdContract{
 	/*
 	* just for testing
 	*/
-	function getValue() public view returns (string val) {
+	function getValue() public view returns (uint256 val) {
 		return value;
 	}
 }

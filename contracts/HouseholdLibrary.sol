@@ -26,7 +26,7 @@ library HouseholdLibrary {
 	function centToRand(uint256 _cents) public pure returns (uint256 rands) {
 		return _cents / 100;
 	}
-
+	
 	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price, uint8 _penaltyFactor) public pure returns (uint256 factor) {
 		if(_recommendedUsage < _usage)
 			return _litre_price * (_usage - _recommendedUsage / _penaltyFactor);
@@ -46,7 +46,7 @@ library HouseholdLibrary {
 		return (_time2 - _time1) / (1000 * 60 * 60 * 24);
 	}
 
-	function calculateRecommendedCumulativeUsage(uint256 _recommendedDailyUsage, uint256 _current, uint256 _previous, uint8 _deps) returns (uint256 cumulativeUsage){
+	function calculateRecommendedCumulativeUsage(uint256 _recommendedDailyUsage, uint256 _current, uint256 _previous, uint8 _deps) returns (uint256 cumulativeUsage) {
 		return _recommendedDailyUsage * getTimeDifferenceDays(_previous, _current) * _deps;
 	}
 }

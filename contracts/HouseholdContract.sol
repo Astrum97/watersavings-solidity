@@ -10,7 +10,7 @@ import "./HouseholdLibrary.sol";
 
 //HouseHoldContract.new().then(function(res) { sc = HouseHoldContract.at(res.address) }) //tik die lyntji in truffle console om die adres te kry dan sc.xxxxxx kan methods execute
 
-contract HouseholdContract{
+contract HouseholdContract {
 
 	//credits/bounty van water gespaar
 	mapping (address => uint256) bounty;

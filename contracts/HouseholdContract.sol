@@ -21,9 +21,11 @@ contract HouseholdContract{
 
 	mapping (address => uint256) price;
 
-	uint time;
+	mapping (address => uint256) time;
 
-	uint8 private litre_price;
+	uint8 litre_price;
+
+	mapping (address => uint8) numberOfDependants;
 
 	function HouseholdContract() {
 		setLitrePrice(1);
@@ -67,6 +69,7 @@ contract HouseholdContract{
 	**/
 	function resetWaterUsage() public returns (uint256 usage) {
 		cumulativeUsage[msg.sender] = 0;
+		bounty[msg.sender] = 0;
 		//resets the Pi.... --assumption
 		return cumulativeUsage[msg.sender];
 	}
@@ -77,11 +80,10 @@ contract HouseholdContract{
 	*/
 	function pay(uint256 _recommendedDailyUsage, uint256 _bountyFactor) public returns (uint256 r_voucher, uint256 r_amount) {
 		uint256 voucher = 0;
-		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime());
+		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]);
 		if(_recommendedCumulativeUsage >= cumulativeUsage[msg.sender]) {
 			bounty[msg.sender] += HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
 			voucher = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
-			bounty[msg.sender] = 0;
 		}
 		else
 			price[msg.sender] += HouseholdLibrary.increasePrice(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, litre_price);
@@ -92,15 +94,15 @@ contract HouseholdContract{
 	}
 
 	function getOutstandingBalance(uint256 _recommendedDailyUsage) returns (uint256 balance) {
-		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime());
-		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime()), litre_price));
+		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]);
+		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]), litre_price));
 	}
 
 	/*
 	* function to lower price if it is high by paying much more tha n usual price
 	**/
 	function lowerPrice(uint256 _factor) public returns (uint256 r_price) {
-		if(price[msg.sender] > litre_price) {
+		if(price[msg.sender] > litre_price && _factor < (price[msg.sender] - litre_price)) {
 			price[msg.sender] -= _factor;
 		}
 
@@ -129,10 +131,15 @@ contract HouseholdContract{
 	}
 
 	function setTime() {
-		time = block.timestamp;
+		time[msg.sender] = block.timestamp;
 	}
 
 	function getTime() returns (uint r_time) {
-		return time;
+		return time[msg.sender];
+	}
+
+	function setNumberOfDependants(uint8 _deps) returns (uint8 deps) {
+		numberOfDependants[msg.sender] = _deps;
+		return numberOfDependants[msg.sender];
 	}
 }

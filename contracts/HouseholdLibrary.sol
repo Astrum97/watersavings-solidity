@@ -3,7 +3,7 @@ pragma solidity ^0.4.11;
 /*
  * Zander Labuschagne se baie werk volg Hier
  * 23585137@protonmail.ch | zander.labuschagne@protonmail.ch
- * Hierdie kode word gepubliseer onder die BSD nuwe of hersiende lisensie
+ * Hierdie kode word gepubliseer onder die BSD 3 nuwe of hersiende lisensie
  */
 
 library HouseholdLibrary {

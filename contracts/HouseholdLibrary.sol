@@ -3,7 +3,7 @@ pragma solidity ^0.4.11;
 /*
  * Zander Labuschagne se baie werk volg Hier
  * 23585137@protonmail.ch | zander.labuschagne@protonmail.ch
- * Hierdie kode word gepubliseer onder die BSD 3 nuwe of hersiende lisensie
+ * Hierdie kode word gepubliseer onder die BSD-3 nuwe of hersiende lisensie
  */
 
 library HouseholdLibrary {
@@ -11,7 +11,7 @@ library HouseholdLibrary {
 		return _recommendedCumulativeUsage - _userCumulativeUsage;
 	}
 
-	function calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher){
+	function calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher) {
 		return _bounty * _factor;
 	}
 

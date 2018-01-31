@@ -227,10 +227,9 @@
   "deployedSourceMap": "224:1786:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;915:101;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;253:196;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;591:185;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;454:132;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1617:165;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1021:248;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1458:154;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1787:220;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1274:179;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;915:101;972:13;1008:3;999:6;:12;;;;;;;;992:19;;915:101;;;:::o;253:196::-;366:14;424:20;394:27;:50;387:57;;253:196;;;;:::o;591:185::-;698:16;753:17;744:6;:26;728:12;:43;;;721:50;;591:185;;;;;:::o;454:132::-;535:15;574:7;564;:17;557:24;;454:132;;;;:::o;1617:165::-;1701:22;1757:19;1746:6;1737;:15;1736:41;;;;;;;;1729:48;;1617:165;;;;:::o;1021:248::-;1136:14;1180:6;1160:17;:26;1157:107;;;1224:17;1215:6;:26;1199:12;:43;;;1192:50;;;;1157:107;1263:1;1256:8;;1021:248;;;;;;:::o;1458:154::-;1538:13;1565:42;1602:4;1586:12;1577:21;;:6;:21;1576:30;1565:10;:42::i;:::-;1558:49;;1458:154;;;;:::o;1787:220::-;1899:23;1960:42;1982:9;1993:8;1960:21;:42::i;:::-;1935:22;:67;1928:74;;1787:220;;;;;:::o;1274:179::-;1381:14;1409:39;1439:7;1430:6;:16;1420:6;:27;1409:10;:39::i;:::-;1402:46;;1274:179;;;;;:::o",
   "source": "pragma solidity ^0.4.11;\r\n\r\n/*\r\n * Zander Labuschagne se baie werk volg Hier\r\n * 23585137@protonmail.ch | zander.labuschagne@protonmail.ch\r\n * Hierdie kode word gepubliseer onder die BSD-3 nuwe of hersiende lisensie\r\n */\r\n\r\nlibrary HouseholdLibrary {\r\n\tfunction calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {\r\n\t\treturn _recommendedCumulativeUsage - _userCumulativeUsage;\r\n\t}\r\n\r\n\tfunction calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher) {\r\n\t\treturn _bounty * _factor;\r\n\t}\r\n\r\n\tfunction increasePrice(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price) public pure returns (uint256 newPrice) {\r\n\t\treturn _litre_price * (_usage - _recommendedUsage);\r\n\t}\r\n\r\n\t/*function getAmountToPay(uint256 _usage, uint256 _price) public pure returns (uint256 amount) {\r\n\t\treturn _usage * _price;\r\n\t}*/\r\n\r\n\tfunction centToRand(uint256 _cents) public pure returns (uint256 rands) {\r\n\t\treturn _cents / 100;\r\n\t}\r\n\r\n\tfunction increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price) public pure returns (uint256 factor) {\r\n\t\tif(_recommendedUsage < _usage)\r\n\t\t\treturn _litre_price * (_usage - _recommendedUsage);\r\n\t\telse\r\n\t\t\treturn 0;\r\n\t}\r\n\r\n\tfunction calculateOutstandingBalance(uint256 _usage, uint256 _price, uint256 _factor) public pure returns (uint256 amount) {\r\n\t\treturn centToRand(_usage * (_price + _factor));\r\n\t}\r\n\r\n\tfunction lowerPriceReq(uint256 _price, uint8 _litre_price) public pure returns (uint256 price) {\r\n\t\treturn centToRand((_price - _litre_price) * 3000);\r\n\t}\r\n\r\n\tfunction getTimeDifferenceDays(uint256 _time1, uint256 _time2) public pure returns (uint256 timeDifference){\r\n\t\treturn (_time2 - _time1) / (1000 * 60 * 60 * 24);\r\n\t}\r\n\r\n\tfunction calculateCumulativeUsage(uint256 _recommendedDailyUsage, uint256 _current, uint256 _previous) returns (uint256 cumulativeUsage){\r\n\t\treturn _recommendedDailyUsage * getTimeDifferenceDays(_previous, _current);\r\n\t}\r\n}\r\n",
   "sourcePath": "/home/zander/GitHub/watersavings-solidity/contracts/HouseholdLibrary.sol",
->>>>>>> 2c36aee6cf8966bc951fbfc14ad4715261e12770
   "ast": {
     "attributes": {
-      "absolutePath": "/home/nicolaas/hackathon/contracts/HouseholdLibrary.sol",
+      "absolutePath": "/home/zander/GitHub/watersavings-solidity/contracts/HouseholdLibrary.sol",
       "exportedSymbols": {
         "HouseholdLibrary": [
           526
@@ -590,7 +589,6 @@
                             "id": 381,
                             "name": "Identifier",
                             "src": "564:7:1"
->>>>>>> 2c36aee6cf8966bc951fbfc14ad4715261e12770
                           },
                           {
                             "attributes": {
@@ -2568,69 +2566,12 @@
     "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
   },
   "networks": {
-    "5777": {
+    "1517390196825": {
       "events": {},
       "links": {},
-<<<<<<< HEAD
-      "address": "0x82d50ad3c1091866e258fd0f1a7cc9674609d254"
+      "address": "0xf6d3bbe4d5fe8579716b45311da3522a3b7a57d2"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-31T08:15:38.313Z"
-=======
-      "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10"
-    },
-    "1517297507599": {
-      "events": {},
-      "links": {},
-      "address": "0xeab3effd84aeacb34b11c3132e9e0ad857515001"
-    },
-    "1517300255015": {
-      "events": {},
-      "links": {},
-      "address": "0x33ae5c91ae7300c035c2d0aa311759b025d4dea3"
-    },
-    "1517306071476": {
-      "events": {},
-      "links": {},
-      "address": "0xde2203ef6af7f523b8cd7e829d9a423e39ff3eb1"
-    },
-    "1517308077729": {
-      "events": {},
-      "links": {},
-      "address": "0xc86b40e984fcf7c1f47fa4c54cc6b3124944eb5f"
-    },
-    "1517309617240": {
-      "events": {},
-      "links": {},
-      "address": "0x89b3ce0885955ebbb3430cd638b9464573ea1900"
-    },
-    "1517313631515": {
-      "events": {},
-      "links": {},
-      "address": "0xf8fe594ad35832a17272c95a4c5a3bd435986217"
-    },
-    "1517314070607": {
-      "events": {},
-      "links": {},
-      "address": "0x728c5a901a3db971223827259abdae8393b355dc"
-    },
-    "1517314256833": {
-      "events": {},
-      "links": {},
-      "address": "0x15956d01514ce50299ae680cd1c78e24a4e5ef02"
-    },
-    "1517314433285": {
-      "events": {},
-      "links": {},
-      "address": "0x5345a758501583f4d2831ea699742ca464c544cf"
-    },
-    "1517383969419": {
-      "events": {},
-      "links": {},
-      "address": "0xcc2850909aaca1386c19ac6070098e440352a3e5"
-    }
-  },
-  "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-31T09:08:52.233Z"
+  "updatedAt": "2018-01-31T09:18:33.360Z"
 }

@@ -41,4 +41,12 @@ library HouseholdLibrary {
 	function lowerPriceReq(uint256 _price, uint8 _litre_price) public pure returns (uint256 price) {
 		return centToRand((_price - _litre_price) * 3000);
 	}
+
+	function getTimeDifferenceDays(uint256 _time1, uint256 _time2) public pure returns (uint256 timeDifference){
+		return (_time2 - _time1) / (1000 * 60 * 60 * 24);
+	}
+
+	function calculateCumulativeUsage(uint256 _recommendedDailyUsage, uint256 _current, uint256 _previous) returns (uint256 cumulativeUsage){
+		return _recommendedDailyUsage * getTimeDifferenceDays(_previous, _current);
+	}
 }

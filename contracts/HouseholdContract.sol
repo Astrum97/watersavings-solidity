@@ -23,30 +23,37 @@ contract HouseholdContract{
 
 	uint8 private litre_price;
 
-	/**
-	* TODO: add stuff
-	**/
 	function HouseholdContract() {
 		setLitrePrice(1);
 		setInitPrice();
 	}
 
+	/*
+	 * To change the R/litre if desired
+	**/
 	function setLitrePrice(uint8 _litre_price) public returns (uint8 r_litre_price) {
 		litre_price = _litre_price;
 		return litre_price;
 	}
 
+	/*
+	 * Set the SA ID number to link the contract instance to the person responsible for the HouseHoldContract
+	**/
 	function setId(string _id) public returns (string r_id) {
 		id[msg.sender] = _id;
 		return id[msg.sender];
 	}
 
+	/*
+	 * Assign the default price of water to the contract instance
+	**/
 	function setInitPrice() public {
 		price[msg.sender] = litre_price;
 	}
 
 	/*
 	* Called hourly or daily to update water _usage
+	* Called from water metre
 	**/
 	function addWaterUsage(uint256 _usage) public returns (uint256 usage) {
 		cumulativeUsage[msg.sender] = _usage;
@@ -63,15 +70,15 @@ contract HouseholdContract{
 	}
 
 	/*
-	* Called once a month, but updated regularly offchain
 	* calculate _recommendedCumulativeUsage from frontend
-	* Pay totals price and convert remainder to bounty
+	* Pay totals price and convert remainder to bounty and return voucher as well
 	*/
 	function pay(uint256 _recommendedCumulativeUsage, uint256 _bountyFactor) public returns (uint256 r_voucher, uint256 r_amount) {
 		uint256 voucher = 0;
 		if(_recommendedCumulativeUsage >= cumulativeUsage[msg.sender]) {
 			bounty[msg.sender] += HouseholdLibrary.calculateBounty(_recommendedCumulativeUsage, cumulativeUsage[msg.sender]);
 			voucher = HouseholdLibrary.calculateVoucher(bounty[msg.sender], _bountyFactor);
+			bounty[msg.sender] = 0;
 		}
 		else
 			price[msg.sender] += HouseholdLibrary.increasePrice(cumulativeUsage[msg.sender], _recommendedCumulativeUsage, litre_price);
@@ -85,7 +92,7 @@ contract HouseholdContract{
 	}
 
 	/*
-	* function to lower price if it is high
+	* function to lower price if it is high by paying much more tha n usual price
 	**/
 	function lowerPrice(uint256 _factor) public returns (uint256 r_price) {
 		if(price[msg.sender] > litre_price) {
@@ -95,14 +102,23 @@ contract HouseholdContract{
 		return price[msg.sender];
 	}
 
+	/*
+	 * If one wants to preview the amount to be paid in order to lower the price/litre if it were raised due to increasePenaltyFactor
+	**/
 	function getLowerPriceReq() public view returns (uint256 amount) {
 		return HouseholdLibrary.lowerPriceReq(price[msg.sender], litre_price);
 	}
 
+	/*
+	 * Get current water usage for personal interests
+	**/
 	function getWaterUsage() public view returns (uint256 usage) {
 		return cumulativeUsage[msg.sender];
 	}
 
+	/*
+	 * Get the current bounty for testing purposes
+	**/
 	function getBounty() public view returns (uint256 r_bounty) {
 		return bounty[msg.sender];
 	}

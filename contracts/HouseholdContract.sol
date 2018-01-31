@@ -25,6 +25,10 @@ contract HouseholdContract{
 
 	uint8 litre_price;
 
+	uint256 lowerPriceReqFactor;
+
+	uint8 penaltyFactor;
+
 	mapping (address => uint8) numberOfDependants;
 
 	function HouseholdContract() {
@@ -69,7 +73,7 @@ contract HouseholdContract{
 	**/
 	function resetWaterUsage() public returns (uint256 usage) {
 		cumulativeUsage[msg.sender] = 0;
-		bounty[msg.sender] = 0;
+		//bounty[msg.sender] = 0;
 		//resets the Pi.... --assumption
 		return cumulativeUsage[msg.sender];
 	}
@@ -93,6 +97,9 @@ contract HouseholdContract{
 		return (voucher, HouseholdLibrary.centToRand(amount));
 	}
 
+	/*
+	 * return the amount it would cost in R at the moment to pay the water bill
+	**/
 	function getOutstandingBalance(uint256 _recommendedDailyUsage) returns (uint256 balance) {
 		uint256 _recommendedCumulativeUsage = HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]);
 		return HouseholdLibrary.calculateOutstandingBalance(cumulativeUsage[msg.sender], price[msg.sender], HouseholdLibrary.increasePenaltyFactor(cumulativeUsage[msg.sender], HouseholdLibrary.calculateRecommendedCumulativeUsage(_recommendedDailyUsage, block.timestamp, getTime(), numberOfDependants[msg.sender]), litre_price));
@@ -110,10 +117,28 @@ contract HouseholdContract{
 	}
 
 	/*
-	 * If one wants to preview the amount to be paid in order to lower the price/litre if it were raised due to increasePenaltyFactor
+	 * If one wants to preview the amount to be paid in R in order to lower the price/litre if it were raised due to increasePenaltyFactor
 	**/
 	function getLowerPriceReq() public view returns (uint256 amount) {
-		return HouseholdLibrary.lowerPriceReq(price[msg.sender], litre_price);
+		return HouseholdLibrary.lowerPriceReq(price[msg.sender], litre_price, lowerPriceReqFactor);
+	}
+
+	/*
+	 * Sets the amount in R which users pay to lower the penalty payments per litre
+	**/
+	function setLowerPriceReqFactor(uint256 _factor) public returns (uint256 factor) {
+		lowerPriceReqFactor = _factor;
+		return lowerPriceReqFactor;
+	}
+
+	/*
+	 * this is the amount the user pays per litre he overused(as well as for future payments) it is the amount of litres per cent ex: 5 would be paying 1c extra for every addisional 5l used
+	 * Ex; 1 would then also be paying 1c extra for every addisional litre used
+	 * Ex: 2 would then also be paying 1c extra for every addisional 2l used
+	 * This should probably be inverted but the current price is 1c per litre and 1l per 1c decrease is actually a lot 
+	**/
+	function setPenaltyFactor(uint8 _penaltyFactor) return (uint8 factor) {
+		penaltyFactor = _penaltyFactor;
 	}
 
 	/*

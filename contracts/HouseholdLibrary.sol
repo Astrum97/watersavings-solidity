@@ -27,9 +27,9 @@ library HouseholdLibrary {
 		return _cents / 100;
 	}
 
-	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price) public pure returns (uint256 factor) {
+	function increasePenaltyFactor(uint256 _usage, uint256 _recommendedUsage, uint8 _litre_price, uint8 _penaltyFactor) public pure returns (uint256 factor) {
 		if(_recommendedUsage < _usage)
-			return _litre_price * (_usage - _recommendedUsage);
+			return _litre_price * (_usage - _recommendedUsage / _penaltyFactor);
 		else
 			return 0;
 	}
@@ -38,8 +38,8 @@ library HouseholdLibrary {
 		return centToRand(_usage * (_price + _factor));
 	}
 
-	function lowerPriceReq(uint256 _price, uint8 _litre_price) public pure returns (uint256 price) {
-		return centToRand((_price - _litre_price) * 1000);
+	function lowerPriceReq(uint256 _price, uint8 _litre_price, uint256 _decreasePricePaymentFactor) public pure returns (uint256 price) {
+		return centToRand((_price - _litre_price)) * _decreasePricePaymentFactor;
 	}
 
 	function getTimeDifferenceDays(uint256 _time1, uint256 _time2) public pure returns (uint256 timeDifference) {

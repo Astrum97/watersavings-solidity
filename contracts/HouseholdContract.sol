@@ -23,6 +23,8 @@ contract HouseholdContract{
 
 	mapping (address => uint256) time;
 
+	mapping (address => string) meterNumber;
+
 	uint8 litre_price;
 
 	uint256 lowerPriceReqFactor;
@@ -36,6 +38,7 @@ contract HouseholdContract{
 	function HouseholdContract() {
 		setLitrePrice(1);
 		setInitPrice();
+		setPenaltyFactor(5);
 	}
 
 	/*
@@ -52,6 +55,14 @@ contract HouseholdContract{
 	function setId(string _id) public returns (string r_id) {
 		id[msg.sender] = _id;
 		return id[msg.sender];
+	}
+
+	/*
+	 * Set the meter number to link the contract instance to the actual meter at the building for the HouseHoldContract
+	**/
+	function setMeterNumber(string _meterNumber) public returns (string r_meterNumber) {
+		meterNumber[msg.sender] = _meterNumber;
+		return meterNumber[msg.sender];
 	}
 
 	/*

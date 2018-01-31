@@ -13,13 +13,13 @@ import "./HouseholdLibrary.sol";
 contract HouseholdContract{
 
 	//credits/bounty van water gespaar
-	mapping private (address => uint256) bounty;
+	mapping (address => uint256) bounty;
 	//id number van persoon
-	mapping private (address => string) id;
+	mapping (address => string) id;
 	//hoeveelheid die huishouding al gebruik het
-	mapping private (address => uint256) cumulativeUsage;
+	mapping (address => uint256) cumulativeUsage;
 
-	mapping private (address => uint256) price;
+	mapping (address => uint256) price;
 
 	uint8 private litre_price;
 

@@ -48,18 +48,18 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60fa8061001d6000396000f3006060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a72305820d9da4962e1b4924386d84b7390a78379a4efcb9e78a7838f8c389312050236530029",
-  "deployedBytecode": "0x6060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a72305820d9da4962e1b4924386d84b7390a78379a4efcb9e78a7838f8c389312050236530029",
-  "sourceMap": "28:364:1:-;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "28:364:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:196;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;258:131;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:196;170:14;228:20;198:27;:50;191:57;;57:196;;;;:::o;258:131::-;339:15;377:7;367;:17;360:24;;258:131;;;;:::o",
-  "source": "pragma solidity ^0.4.11;\r\n\r\nlibrary HouseholdLibrary {\r\n\tfunction calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {\r\n\t\treturn _recommendedCumulativeUsage - _userCumulativeUsage;\r\n\t}\r\n\r\n\tfunction calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher){\r\n\t\treturn _bounty * _factor;\r\n\t}\r\n}\r\n",
-  "sourcePath": "/home/zander/GitHub/watersavings-solidity/contracts/HouseholdLibrary.sol",
+  "bytecode": "0x6060604052341561000f57600080fd5b60fa8061001d6000396000f3006060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a7230582070c72ca47b5860d7a24a572a32e71d1079b4f25fa59ac9cfd932333ab10af4ba0029",
+  "deployedBytecode": "0x6060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680634251e8d914604e5780634f029e41146081575b600080fd5b606b600480803590602001909190803590602001909190505060b4565b6040518082815260200191505060405180910390f35b609e600480803590602001909190803590602001909190505060c1565b6040518082815260200191505060405180910390f35b6000818303905092915050565b60008183029050929150505600a165627a7a7230582070c72ca47b5860d7a24a572a32e71d1079b4f25fa59ac9cfd932333ab10af4ba0029",
+  "sourceMap": "28:365:1:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "28:365:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:196;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;258:132;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:196;170:14;228:20;198:27;:50;191:57;;57:196;;;;:::o;258:132::-;339:15;378:7;368;:17;361:24;;258:132;;;;:::o",
+  "source": "pragma solidity ^0.4.11;\r\n\r\nlibrary HouseholdLibrary {\r\n\tfunction calculateBounty(uint256 _recommendedCumulativeUsage, uint256 _userCumulativeUsage) public pure returns (uint256 bounty) {\r\n\t\treturn _recommendedCumulativeUsage - _userCumulativeUsage;\r\n\t}\r\n\r\n\tfunction calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher) {\r\n\t\treturn _bounty * _factor;\r\n\t}\r\n}\r\n",
+  "sourcePath": "/home/nicolaas/hackathon/contracts/HouseholdLibrary.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/home/zander/GitHub/watersavings-solidity/contracts/HouseholdLibrary.sol",
+      "absolutePath": "/home/nicolaas/hackathon/contracts/HouseholdLibrary.sol",
       "exportedSymbols": {
         "HouseholdLibrary": [
-          193
+          202
         ]
       }
     },
@@ -73,7 +73,7 @@
             ".11"
           ]
         },
-        "id": 164,
+        "id": 173,
         "name": "PragmaDirective",
         "src": "0:24:1"
       },
@@ -89,10 +89,10 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            193
+            202
           ],
           "name": "HouseholdLibrary",
-          "scope": 194
+          "scope": 203
         },
         "children": [
           {
@@ -105,7 +105,7 @@
               ],
               "name": "calculateBounty",
               "payable": false,
-              "scope": 193,
+              "scope": 202,
               "stateMutability": "pure",
               "superFunction": null,
               "visibility": "public"
@@ -117,7 +117,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_recommendedCumulativeUsage",
-                      "scope": 178,
+                      "scope": 187,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -130,12 +130,12 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 165,
+                        "id": 174,
                         "name": "ElementaryTypeName",
                         "src": "82:7:1"
                       }
                     ],
-                    "id": 166,
+                    "id": 175,
                     "name": "VariableDeclaration",
                     "src": "82:35:1"
                   },
@@ -143,7 +143,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_userCumulativeUsage",
-                      "scope": 178,
+                      "scope": 187,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -156,17 +156,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 167,
+                        "id": 176,
                         "name": "ElementaryTypeName",
                         "src": "119:7:1"
                       }
                     ],
-                    "id": 168,
+                    "id": 177,
                     "name": "VariableDeclaration",
                     "src": "119:28:1"
                   }
                 ],
-                "id": 169,
+                "id": 178,
                 "name": "ParameterList",
                 "src": "81:67:1"
               },
@@ -176,7 +176,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "bounty",
-                      "scope": 178,
+                      "scope": 187,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -189,17 +189,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 170,
+                        "id": 179,
                         "name": "ElementaryTypeName",
                         "src": "170:7:1"
                       }
                     ],
-                    "id": 171,
+                    "id": 180,
                     "name": "VariableDeclaration",
                     "src": "170:14:1"
                   }
                 ],
-                "id": 172,
+                "id": 181,
                 "name": "ParameterList",
                 "src": "169:16:1"
               },
@@ -207,7 +207,7 @@
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 172
+                      "functionReturnParameters": 181
                     },
                     "children": [
                       {
@@ -231,11 +231,11 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 166,
+                              "referencedDeclaration": 175,
                               "type": "uint256",
                               "value": "_recommendedCumulativeUsage"
                             },
-                            "id": 173,
+                            "id": 182,
                             "name": "Identifier",
                             "src": "198:27:1"
                           },
@@ -245,31 +245,31 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 168,
+                              "referencedDeclaration": 177,
                               "type": "uint256",
                               "value": "_userCumulativeUsage"
                             },
-                            "id": 174,
+                            "id": 183,
                             "name": "Identifier",
                             "src": "228:20:1"
                           }
                         ],
-                        "id": 175,
+                        "id": 184,
                         "name": "BinaryOperation",
                         "src": "198:50:1"
                       }
                     ],
-                    "id": 176,
+                    "id": 185,
                     "name": "Return",
                     "src": "191:57:1"
                   }
                 ],
-                "id": 177,
+                "id": 186,
                 "name": "Block",
                 "src": "186:67:1"
               }
             ],
-            "id": 178,
+            "id": 187,
             "name": "FunctionDefinition",
             "src": "57:196:1"
           },
@@ -283,7 +283,7 @@
               ],
               "name": "calculateVoucher",
               "payable": false,
-              "scope": 193,
+              "scope": 202,
               "stateMutability": "pure",
               "superFunction": null,
               "visibility": "public"
@@ -295,7 +295,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_bounty",
-                      "scope": 192,
+                      "scope": 201,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -308,12 +308,12 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 179,
+                        "id": 188,
                         "name": "ElementaryTypeName",
                         "src": "284:7:1"
                       }
                     ],
-                    "id": 180,
+                    "id": 189,
                     "name": "VariableDeclaration",
                     "src": "284:15:1"
                   },
@@ -321,7 +321,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_factor",
-                      "scope": 192,
+                      "scope": 201,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -334,17 +334,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 181,
+                        "id": 190,
                         "name": "ElementaryTypeName",
                         "src": "301:7:1"
                       }
                     ],
-                    "id": 182,
+                    "id": 191,
                     "name": "VariableDeclaration",
                     "src": "301:15:1"
                   }
                 ],
-                "id": 183,
+                "id": 192,
                 "name": "ParameterList",
                 "src": "283:34:1"
               },
@@ -354,7 +354,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "voucher",
-                      "scope": 192,
+                      "scope": 201,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -367,17 +367,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 184,
+                        "id": 193,
                         "name": "ElementaryTypeName",
                         "src": "339:7:1"
                       }
                     ],
-                    "id": 185,
+                    "id": 194,
                     "name": "VariableDeclaration",
                     "src": "339:15:1"
                   }
                 ],
-                "id": 186,
+                "id": 195,
                 "name": "ParameterList",
                 "src": "338:17:1"
               },
@@ -385,7 +385,7 @@
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 186
+                      "functionReturnParameters": 195
                     },
                     "children": [
                       {
@@ -409,13 +409,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 180,
+                              "referencedDeclaration": 189,
                               "type": "uint256",
                               "value": "_bounty"
                             },
-                            "id": 187,
+                            "id": 196,
                             "name": "Identifier",
-                            "src": "367:7:1"
+                            "src": "368:7:1"
                           },
                           {
                             "attributes": {
@@ -423,43 +423,43 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 182,
+                              "referencedDeclaration": 191,
                               "type": "uint256",
                               "value": "_factor"
                             },
-                            "id": 188,
+                            "id": 197,
                             "name": "Identifier",
-                            "src": "377:7:1"
+                            "src": "378:7:1"
                           }
                         ],
-                        "id": 189,
+                        "id": 198,
                         "name": "BinaryOperation",
-                        "src": "367:17:1"
+                        "src": "368:17:1"
                       }
                     ],
-                    "id": 190,
+                    "id": 199,
                     "name": "Return",
-                    "src": "360:24:1"
+                    "src": "361:24:1"
                   }
                 ],
-                "id": 191,
+                "id": 200,
                 "name": "Block",
-                "src": "355:34:1"
+                "src": "356:34:1"
               }
             ],
-            "id": 192,
+            "id": 201,
             "name": "FunctionDefinition",
-            "src": "258:131:1"
+            "src": "258:132:1"
           }
         ],
-        "id": 193,
+        "id": 202,
         "name": "ContractDefinition",
-        "src": "28:364:1"
+        "src": "28:365:1"
       }
     ],
-    "id": 194,
+    "id": 203,
     "name": "SourceUnit",
-    "src": "0:394:1"
+    "src": "0:395:1"
   },
   "compiler": {
     "name": "solc",
@@ -469,54 +469,9 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10"
-    },
-    "1517297507599": {
-      "events": {},
-      "links": {},
-      "address": "0xeab3effd84aeacb34b11c3132e9e0ad857515001"
-    },
-    "1517300255015": {
-      "events": {},
-      "links": {},
-      "address": "0x33ae5c91ae7300c035c2d0aa311759b025d4dea3"
-    },
-    "1517306071476": {
-      "events": {},
-      "links": {},
-      "address": "0xde2203ef6af7f523b8cd7e829d9a423e39ff3eb1"
-    },
-    "1517308077729": {
-      "events": {},
-      "links": {},
-      "address": "0xc86b40e984fcf7c1f47fa4c54cc6b3124944eb5f"
-    },
-    "1517309617240": {
-      "events": {},
-      "links": {},
-      "address": "0x89b3ce0885955ebbb3430cd638b9464573ea1900"
-    },
-    "1517313631515": {
-      "events": {},
-      "links": {},
-      "address": "0xf8fe594ad35832a17272c95a4c5a3bd435986217"
-    },
-    "1517314070607": {
-      "events": {},
-      "links": {},
-      "address": "0x728c5a901a3db971223827259abdae8393b355dc"
-    },
-    "1517314256833": {
-      "events": {},
-      "links": {},
-      "address": "0x15956d01514ce50299ae680cd1c78e24a4e5ef02"
-    },
-    "1517314433285": {
-      "events": {},
-      "links": {},
-      "address": "0x5345a758501583f4d2831ea699742ca464c544cf"
+      "address": "0x82d50ad3c1091866e258fd0f1a7cc9674609d254"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-30T12:14:07.175Z"
+  "updatedAt": "2018-01-31T08:15:38.313Z"
 }

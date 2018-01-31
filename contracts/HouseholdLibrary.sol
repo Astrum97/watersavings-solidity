@@ -5,7 +5,7 @@ library HouseholdLibrary {
 		return _recommendedCumulativeUsage - _userCumulativeUsage;
 	}
 
-	function calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher){
+	function calculateVoucher(uint256 _bounty, uint256 _factor) public pure returns (uint256 voucher) {
 		return _bounty * _factor;
 	}
 }

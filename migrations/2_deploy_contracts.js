@@ -1,21 +1,24 @@
-<<<<<<< HEAD
-const HouseholdLibrary = artifacts.require('HouseholdLibrary.sol');
-const HouseholdContract = artifacts.require('HouseholdContract.sol');
+
+var HouseholdContract = artifacts.require("./HouseholdContract.sol");
+var HouseholdLibrary = artifacts.require("./HouseholdLibrary.sol");
 
 module.exports = function (deployer) {
 	deployer.deploy(HouseholdLibrary).then(() => {
-       deployer.deploy(HouseholdContract);
-   });
+        return deployer.deploy(HouseholdContract);
+    });
     deployer.link(HouseholdLibrary, HouseholdContract);
 };
-=======
-var Master = artifacts.require("./Master.sol");
-module.exports = function(deployer) {
-  deployer.deploy(Master);
-};
 
-var Node = artifacts.require("./Node.sol");
+/*
+var HouseholdLibrary = artifacts.require("./HouseholdLibrary.sol");
 module.exports = function(deployer) {
-  deployer.deploy(Node);
-};
->>>>>>> develop
+    deploy.deploy(HouseholdLibrary);
+}
+
+var HouseholdContract = artifacts.require("./HouseholdContract.sol");
+module.exports = function(deployer) {
+    deploy.deploy(HouseholdContract);
+}
+
+deployer.link(HouseholdLibrary, HouseholdContract);
+*/

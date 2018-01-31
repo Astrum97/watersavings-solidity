@@ -31,14 +31,22 @@ contract HouseholdContract{
 
 	uint8 penaltyFactor;
 
-	uint256 value;
+	uint256 value; //TODO: Remove on final implementation
 
 	mapping (address => uint8) numberOfResidents;
 
 	function HouseholdContract() {
 		setLitrePrice(1);
-		setInitPrice();
 		setPenaltyFactor(5);
+		setLowerPriceReqFactor(10);
+	}
+
+	function register(string _id, string _meterNumber, uint8, _residents) public {
+		id[msg.sender] = _id;
+		meterNumber[msg.sender] = _meterNumber;
+		numberOfResidents[msg.sender] = _residents;
+		setTime();
+		resetWaterUsage();
 	}
 
 	/*
@@ -47,22 +55,6 @@ contract HouseholdContract{
 	function setLitrePrice(uint8 _litre_price) public returns (uint8 r_litre_price) {
 		litre_price = _litre_price;
 		return litre_price;
-	}
-
-	/*
-	 * Set the SA ID number to link the contract instance to the person responsible for the HouseHoldContract
-	**/
-	function setId(string _id) public returns (string r_id) {
-		id[msg.sender] = _id;
-		return id[msg.sender];
-	}
-
-	/*
-	 * Set the meter number to link the contract instance to the actual meter at the building for the HouseHoldContract
-	**/
-	function setMeterNumber(string _meterNumber) public returns (string r_meterNumber) {
-		meterNumber[msg.sender] = _meterNumber;
-		return meterNumber[msg.sender];
 	}
 
 	/*
@@ -182,15 +174,6 @@ contract HouseholdContract{
 	*/
 	function getTime() public view returns (uint r_time) {
 		return time[msg.sender];
-	}
-
-	/*
-	 * Mutator for number of dependants to set the number of people in the household thats using the water on this one address/account
-	 * Only called on registration
-	**/
-	function setNumberOfResidents(uint8 _deps) returns (uint8 deps) {
-		numberOfResidents[msg.sender] = _deps;
-		return numberOfResidents[msg.sender];
 	}
 
 	/*

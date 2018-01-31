@@ -31,7 +31,7 @@ contract HouseholdContract{
 
 	uint8 penaltyFactor;
 
-	uint256 value; //TODO: Remove on final implementation
+	string value; //TODO: Remove on final implementation
 
 	mapping (address => uint8) numberOfResidents;
 
@@ -41,12 +41,14 @@ contract HouseholdContract{
 		setLowerPriceReqFactor(10);
 	}
 
-	function register(string _id, string _meterNumber, uint8 _residents) public {
+	function register(string _id, string _meterNumber, uint8 _residents) public returns (uint8 r_err) {
 		id[msg.sender] = _id;
 		meterNumber[msg.sender] = _meterNumber;
 		numberOfResidents[msg.sender] = _residents;
 		setTime();
 		resetWaterUsage();
+		return 0;
+		//value = id[msg.sender];
 	}
 
 	/*
@@ -179,7 +181,7 @@ contract HouseholdContract{
 	/*
 	* just for testing
 	*/
-	function getValue() public view returns (uint256 val) {
+	function getValue() public view returns (string val) {
 		return value;
 	}
 }

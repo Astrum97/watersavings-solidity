@@ -41,7 +41,7 @@ contract HouseholdContract{
 		setLowerPriceReqFactor(10);
 	}
 
-	function register(string _id, string _meterNumber, uint8, _residents) public {
+	function register(string _id, string _meterNumber, uint8 _residents) public {
 		id[msg.sender] = _id;
 		meterNumber[msg.sender] = _meterNumber;
 		numberOfResidents[msg.sender] = _residents;
